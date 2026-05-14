@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Portal Fiscal Premium</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Inter',sans-serif;
+}
+
+body{
+  background:#edf2f9;
+  color:#0f172a;
+}
+
+/* ===== TELAS ===== */
+
+.screen{
+  display:none;
+  min-height:100vh;
+  padding:18px;
+}
+
+.screen.active{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.container{
+  width:100%;
+  max-width:500px;
+}
+
+/* ===== HERO ===== */
+
+.hero{
+  background:linear-gradient(135deg,#071d49,#0f4fbf);
+  border-radius:34px;
+  padding:34px 26px;
+  color:#fff;
+  margin-bottom:18px;
+  box-shadow:0 25px 55px rgba(15,79,191,.18);
+}
+
+.logo{
+  width:78px;
+  height:78px;
+  border-radius:24px;
+  background:#fff;
+  color:#0f4fbf;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:30px;
+  font-weight:800;
+  margin-bottom:22px;
+}
+
+.hero h1{
+  font-size:30px;
+  line-height:1.2;
+}
+
+.hero p{
+  margin-top:14px;
+  line-height:1.7;
+  font-size:15px;
+  opacity:.86;
+}
+
+/* ===== CARD ===== */
+
+.card{
+  background:#fff;
+  border-radius:28px;
+  padding:22px;
+  box-shadow:0 10px 30px rgba(15,23,42,.05);
+}
+
+.label{
+  display:block;
+  margin-bottom:12px;
+  font-size:13px;
+  font-weight:700;
+  color:#64748b;
+}
+
+.input{
+  width:100%;
+  height:62px;
+  border-radius:18px;
+  border:1px solid #dbe2ea;
+  padding:0 18px;
+  font-size:16px;
+  outline:none;
+  margin-bottom:18px;
+}
+
+.input:focus{
+  border-color:#2563eb;
+  box-shadow:0 0 0 4px rgba(37,99,235,.08);
+}
+
+/* ===== BOTÕES ===== */
+
+.btn{
+  width:100%;
+  height:62px;
+  border:none;
+  border-radius:22px;
+  background:linear-gradient(135deg,#1976e6,#0f5fd3);
+  color:#fff;
+  font-size:15px;
+  font-weight:800;
+  cursor:pointer;
+  box-shadow:0 14px 35px rgba(25,118,230,.22);
+}
+
+.btn-outline{
+  margin-top:12px;
+  background:#fff;
+  color:#0f172a;
+  border:1px solid #dbe2ea;
+  box-shadow:none;
+}
+
+/* ===== MODAL ===== */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(2,6,23,.82);
+  display:none;
+  justify-content:center;
+  align-items:flex-end;
+  z-index:9999;
+  backdrop-filter:blur(8px);
+}
+
+.modal-box{
+  width:100%;
+  max-width:520px;
+  max-height:96vh;
+  background:#fff;
+  border-radius:30px 30px 0 0;
+  overflow:hidden;
+  animation:up .35s ease;
+  display:flex;
+  flex-direction:column;
+}
+
+@keyframes up{
+
+  from{
+    transform:translateY(100%);
+  }
+
+  to{
+    transform:translateY(0);
+  }
+
+}
+
+/* ===== PROPOSTA ===== */
+
+.proposta{
+  background:linear-gradient(135deg,#071d49,#0f4fbf);
+  padding:28px;
+  color:#fff;
+}
+
+.proposta span{
+  font-size:12px;
+  opacity:.8;
+}
+
+.proposta h1{
+  font-size:46px;
+  margin:14px 0 18px;
+}
+
+.line{
+  display:flex;
+  justify-content:space-between;
+  padding:14px 0;
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+
+.modal-content{
+  padding:22px;
+}
+
+.check{
+  display:flex;
+  gap:12px;
+  margin-bottom:20px;
+}
+
+.check input{
+  width:22px;
+  height:22px;
+}
+
+.check span{
+  font-size:14px;
+  line-height:1.6;
+}
+
+/* ===== ÁREA CLIENTE ===== */
+
+.client-header{
+  background:linear-gradient(135deg,#071d49,#0f4fbf);
+  border-radius:30px;
+  padding:22px;
+  color:#fff;
+  margin-bottom:16px;
+}
+
+.status{
+  display:inline-flex;
+  background:rgba(255,255,255,.14);
+  padding:8px 14px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:700;
+}
+
+.client-header h1{
+  margin-top:14px;
+  font-size:28px;
+}
+
+.client-header p{
+  margin-top:10px;
+  opacity:.84;
+  font-size:14px;
+}
+
+.alert{
+  background:#fff7ed;
+  border:1px solid #fdba74;
+  color:#c2410c;
+  padding:15px;
+  border-radius:18px;
+  font-size:13px;
+  margin-bottom:16px;
+}
+
+/* ===== INFO ===== */
+
+.info-card{
+  background:#fff;
+  border-radius:24px;
+  padding:18px;
+  margin-bottom:14px;
+  box-shadow:0 10px 25px rgba(15,23,42,.04);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.item{
+  background:#f8fafc;
+  border:1px solid #e2e8f0;
+  border-radius:16px;
+  padding:14px;
+}
+
+.item.full{
+  grid-column:span 2;
+}
+
+.item small{
+  display:block;
+  font-size:11px;
+  color:#64748b;
+  margin-bottom:6px;
+}
+
+.item strong{
+  font-size:14px;
+}
+
+/* ===== BOTÃO NF ===== */
+
+.btn-print{
+  width:100%;
+  height:68px;
+  border:none;
+  border-radius:24px;
+  background:linear-gradient(135deg,#1976e6,#0f5fd3);
+  color:#fff;
+  font-size:17px;
+  font-weight:800;
+  cursor:pointer;
+  animation:pulse 1.5s infinite;
+  box-shadow:
+  0 0 0 rgba(25,118,230,.5),
+  0 16px 35px rgba(25,118,230,.22);
+}
+
+@keyframes pulse{
+
+  0%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.02);
+  }
+
+  100%{
+    transform:scale(1);
+  }
+
+}
+
+/* ===== MODAL NOTA ===== */
+
+.nota-header{
+  background:linear-gradient(135deg,#071d49,#0f4fbf);
+  padding:22px;
+  color:#fff;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:rgba(255,255,255,.14);
+  padding:8px 14px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:700;
+}
+
+.dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#22c55e;
+}
+
+.nota-header h2{
+  margin-top:14px;
+  font-size:24px;
+}
+
+.nota-header p{
+  margin-top:10px;
+  font-size:13px;
+  line-height:1.6;
+  opacity:.84;
+}
+
+.nota-body{
+  flex:1;
+  overflow:auto;
+  background:#edf2f9;
+  padding:16px;
+}
+
+/* ===== DOCUMENTO ===== */
+
+.documento{
+  background:#fff;
+  border-radius:22px;
+  overflow:hidden;
+  border:1px solid #dbe2ea;
+  box-shadow:0 10px 25px rgba(15,23,42,.06);
+}
+
+.doc-top{
+  padding:18px;
+  border-bottom:1px solid #dbe2ea;
+}
+
+.doc-top h3{
+  font-size:18px;
+}
+
+.doc-top p{
+  margin-top:8px;
+  font-size:11px;
+  color:#475569;
+  line-height:1.6;
+}
+
+.nfe-info{
+  display:flex;
+  gap:12px;
+  margin-top:16px;
+  flex-wrap:wrap;
+}
+
+.nfe-box{
+  background:#f8fafc;
+  border:1px solid #dbe2ea;
+  border-radius:14px;
+  padding:12px;
+  flex:1;
+  min-width:120px;
+}
+
+.nfe-box small{
+  display:block;
+  font-size:10px;
+  color:#64748b;
+  margin-bottom:4px;
+}
+
+.barcode{
+  width:100%;
+  height:70px;
+  border-radius:8px;
+  margin-top:16px;
+  background:
+  repeating-linear-gradient(
+    90deg,
+    #000,
+    #000 3px,
+    #fff 3px,
+    #fff 6px
+  );
+}
+
+/* ===== TABELA ===== */
+
+.nf-table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.nf-table td{
+  border:1px solid #e2e8f0;
+  padding:11px;
+  font-size:11px;
+  vertical-align:top;
+}
+
+.nf-table strong{
+  display:block;
+  margin-bottom:6px;
+  color:#64748b;
+  font-size:10px;
+}
+
+.gray{
+  background:#f8fafc;
+}
+
+/* ===== ALERTA ===== */
+
+.nota-alert{
+  margin-top:16px;
+  background:#fff7ed;
+  border:1px solid #fdba74;
+  border-radius:18px;
+  padding:15px;
+  color:#c2410c;
+  font-size:12px;
+  line-height:1.7;
+}
+
+/* ===== FOOTER NOTA ===== */
+
+.nota-footer{
+  background:#fff;
+  border-top:1px solid #e2e8f0;
+  padding:18px;
+}
+
+.btn-pay{
+  width:100%;
+  height:68px;
+  border:none;
+  border-radius:22px;
+  background:linear-gradient(135deg,#16a34a,#15803d);
+  color:#fff;
+  font-size:18px;
+  font-weight:800;
+  cursor:pointer;
+  animation:pulse 1.5s infinite;
+  box-shadow:
+    0 0 0 rgba(22,163,74,.4),
+    0 16px 35px rgba(22,163,74,.22);
+}
+
+/* ===== PAGAMENTO ===== */
+
+.payment-card{
+  background:#fff;
+  border-radius:30px;
+  padding:28px;
+  text-align:center;
+  box-shadow:0 12px 35px rgba(15,23,42,.05);
+}
+
+.payment-card h2{
+  margin-bottom:10px;
+}
+
+.payment-card p{
+  color:#64748b;
+  line-height:1.6;
+}
+
+.qrcode{
+  width:230px;
+  height:230px;
+  margin:26px auto;
+  border-radius:24px;
+  border:2px dashed #cbd5e1;
+  background:#f8fafc;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-weight:700;
+}
+
+.pix{
+  background:#f8fafc;
+  border:1px solid #dbe2ea;
+  border-radius:18px;
+  padding:16px;
+  font-size:13px;
+  line-height:1.6;
+  word-break:break-all;
+  margin-bottom:18px;
+}
+
+/* ===== MOBILE ===== */
+
+@media(max-width:480px){
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .item.full{
+    grid-column:span 1;
+  }
+
+  .hero h1{
+    font-size:27px;
+  }
+
+  .proposta h1{
+    font-size:40px;
+  }
+
+  .btn-pay{
+    font-size:17px;
+  }
+
+  .nf-table td{
+    padding:9px;
+    font-size:10px;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- CONSULTA -->
+
+<section class="screen active" id="consulta">
+
+<div class="container">
+
+<div class="hero">
+
+<div class="logo">
+NF
+</div>
+
+<h1>
+Portal de Emissão Fiscal
+</h1>
+
+<p>
+Consulte o CPF para acessar o processo de emissão da nota fiscal eletrônica.
+</p>
+
+</div>
+
+<div class="card">
+
+<label class="label">
+CONSULTA CPF
+</label>
+
+<input
+class="input"
+id="cpf"
+placeholder="Digite o CPF"
+value="123.456.789-00"
+>
+
+<button class="btn" onclick="consultarCPF()">
+CONSULTAR CLIENTE
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- MODAL PROPOSTA -->
+
+<div class="modal" id="modalProposta">
+
+<div class="modal-box">
+
+<div class="proposta">
+
+<span>EMISSÃO FISCAL</span>
+
+<h1>R$ 1.500,00</h1>
+
+<div class="line">
+<p>Valor veículo</p>
+<strong>R$ 84.900,00</strong>
+</div>
+
+<div class="line">
+<p>Taxa emissão NF</p>
+<strong>R$ 1.500,00</strong>
+</div>
+
+</div>
+
+<div class="modal-content">
+
+<label class="check">
+
+<input type="checkbox" id="aceite">
+
+<span>
+Declaro que aceito os termos para emissão da nota fiscal eletrônica.
+</span>
+
+</label>
+
+<button class="btn" onclick="confirmarFluxo()">
+✓ CONTINUAR
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CLIENTE -->
+
+<section class="screen" id="cliente">
+
+<div class="container">
+
+<div class="client-header">
+
+<div class="status">
+PROCESSO EM ANÁLISE
+</div>
+
+<h1>
+Área do Cliente
+</h1>
+
+<p>
+Acompanhe os dados da emissão fiscal.
+</p>
+
+</div>
+
+<div class="alert">
+Pagamento pendente para liberação da nota fiscal.
+</div>
+
+<div class="info-card">
+
+<div class="grid">
+
+<div class="item">
+<small>Cliente</small>
+<strong>João Carlos Silva</strong>
+</div>
+
+<div class="item">
+<small>CPF</small>
+<strong>123.456.789-00</strong>
+</div>
+
+<div class="item full">
+<small>Endereço</small>
+<strong>Rua Augusta, 1500 - São Paulo/SP</strong>
+</div>
+
+<div class="item">
+<small>Marca</small>
+<strong>Honda</strong>
+</div>
+
+<div class="item">
+<small>Modelo</small>
+<strong>Civic Touring</strong>
+</div>
+
+<div class="item">
+<small>Ano</small>
+<strong>2022</strong>
+</div>
+
+<div class="item">
+<small>Cor</small>
+<strong>Preto</strong>
+</div>
+
+<div class="item full">
+<small>Placa</small>
+<strong>ABC1D23</strong>
+</div>
+
+</div>
+
+</div>
+
+<button class="btn-print" onclick="abrirNota()">
+🧾 IMPRIMIR NOTA FISCAL
+</button>
+
+</div>
+
+</section>
+
+<!-- MODAL NOTA -->
+
+<div class="modal" id="modalNota">
+
+<div class="modal-box">
+
+<div class="nota-header">
+
+<div class="badge">
+
+<div class="dot"></div>
+
+NF-e PENDENTE
+
+</div>
+
+<h2>
+Nota Fiscal Eletrônica
+</h2>
+
+<p>
+Confira os dados da emissão antes da liberação definitiva do documento fiscal.
+</p>
+
+</div>
+
+<div class="nota-body">
+
+<div class="documento">
+
+<div class="doc-top">
+
+<h3>
+PORTAL FISCAL DIGITAL LTDA
+</h3>
+
+<p>
+Rua Augusta, 1500 - São Paulo/SP<br>
+CNPJ: 12.345.678/0001-99<br>
+Inscrição Estadual: 000.000.000.000
+</p>
+
+<div class="nfe-info">
+
+<div class="nfe-box">
+<small>NÚMERO NF-e</small>
+<strong>00045821</strong>
+</div>
+
+<div class="nfe-box">
+<small>DATA EMISSÃO</small>
+<strong>13/05/2026</strong>
+</div>
+
+<div class="nfe-box">
+<small>SITUAÇÃO</small>
+<strong>PENDENTE</strong>
+</div>
+
+</div>
+
+<div class="barcode"></div>
+
+</div>
+
+<table class="nf-table">
+
+<tr class="gray">
+
+<td colspan="2">
+<strong>DESTINATÁRIO</strong>
+João Carlos Silva
+</td>
+
+<td>
+<strong>CPF</strong>
+123.456.789-00
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="3">
+<strong>ENDEREÇO</strong>
+Rua Augusta, 1500 - São Paulo/SP
+</td>
+
+</tr>
+
+<tr class="gray">
+
+<td>
+<strong>MARCA</strong>
+Honda
+</td>
+
+<td>
+<strong>MODELO</strong>
+Civic Touring
+</td>
+
+<td>
+<strong>ANO</strong>
+2022
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+<strong>COR</strong>
+Preto
+</td>
+
+<td>
+<strong>PLACA</strong>
+ABC1D23
+</td>
+
+<td>
+<strong>PAGAMENTO</strong>
+Financiamento
+</td>
+
+</tr>
+
+<tr class="gray">
+
+<td colspan="2">
+<strong>VALOR VEÍCULO</strong>
+R$ 84.900,00
+</td>
+
+<td>
+<strong>TAXA NF</strong>
+R$ 1.500,00
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="3">
+
+<strong>OBSERVAÇÕES</strong>
+
+Documento aguardando confirmação bancária para liberação definitiva da chave fiscal eletrônica.
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+<div class="nota-alert">
+
+A nota fiscal será liberada automaticamente após a confirmação do pagamento da taxa de emissão.
+
+</div>
+
+</div>
+
+<div class="nota-footer">
+
+<button class="btn-pay" onclick="abrirPagamento()">
+
+💳 PAGAR AQUI A NOTA FISCAL
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- PAGAMENTO -->
+
+<section class="screen" id="pagamento">
+
+<div class="container">
+
+<div class="payment-card">
+
+<h2>
+Pagamento PIX
+</h2>
+
+<p>
+Realize o pagamento para concluir a emissão da nota fiscal.
+</p>
+
+<div class="qrcode">
+QR CODE PIX
+</div>
+
+<div class="pix">
+00020126580014BR.GOV.BCB.PIX0136PORTALFISCAL52040000530398654051500.005802BR5920PORTALFISCAL6009SAOPAULO62070503***
+</div>
+
+<button class="btn">
+COPIAR PIX
+</button>
+
+<button class="btn btn-outline" onclick="resetarFluxo()">
+FINALIZAR
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<script>
+
+function trocarTela(id){
+
+document.querySelectorAll('.screen')
+.forEach(screen=>{
+screen.classList.remove('active');
+});
+
+document.getElementById(id)
+.classList.add('active');
+
+window.scrollTo({
+top:0,
+behavior:'smooth'
+});
+
+}
+
+function consultarCPF(){
+
+let cpf=document.getElementById('cpf').value;
+
+if(cpf.trim()===''){
+
+alert('Digite um CPF.');
+return;
+
+}
+
+document.getElementById('modalProposta')
+.style.display='flex';
+
+}
+
+function confirmarFluxo(){
+
+let aceite=document.getElementById('aceite');
+
+if(!aceite.checked){
+
+alert('Aceite os termos.');
+return;
+
+}
+
+document.getElementById('modalProposta')
+.style.display='none';
+
+trocarTela('cliente');
+
+}
+
+function abrirNota(){
+
+document.getElementById('modalNota')
+.style.display='flex';
+
+}
+
+function abrirPagamento(){
+
+document.getElementById('modalNota')
+.style.display='none';
+
+trocarTela('pagamento');
+
+}
+
+function resetarFluxo(){
+
+document.getElementById('modalNota')
+.style.display='none';
+
+document.getElementById('modalProposta')
+.style.display='none';
+
+document.getElementById('aceite')
+.checked=false;
+
+document.getElementById('cpf')
+.value='';
+
+trocarTela('consulta');
+
+}
+
+</script>
+
+</body>
+</html>
